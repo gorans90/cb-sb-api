@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog/1.9"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog/1.9
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-1.9.xsd">
+    <changeSet author="Goran Simic" id="changelog-1.1">
+        <!--<preConditions onFail="CONTINUE">-->
+            <!--<tableExists schemaName="carbook" tableName="test" />-->
+            <!--<tableExists schemaName="carbook" tableName="carprofile" />-->
+            <!--<tableExists schemaName="carbook" tableName="authorities" />-->
+            <!--<tableExists schemaName="carbook" tableName="users" />-->
+            <!--<tableExists schemaName="carbook" tableName="carmodel" />-->
+            <!--<tableExists schemaName="carbook" tableName="carmanufacturer" />-->
+        <!--</preConditions>-->
+        <!--<comment>Table exists. Dropping table test</comment>-->
+        <!--<dropTable tableName="test"/>-->
+        <dropTable tableName="carprofile"/>
+        <dropTable tableName="authorities"/>
+        <dropTable tableName="users"/>
+        <dropTable tableName="carmodel"/>
+        <dropTable tableName="carmanufacturer"/>
+
+        <createTable tableName="carmanufacturer">
+            <column name="id" type="int" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false" />
+            </column>
+            <column name="active" type="varchar(255)" />
+            <column name="code" type="varchar(255)" />
+            <column name="name" type="varchar(255)" />
+        </createTable>
+
+        <createTable tableName="carmodel">
+            <column name="id" type="int" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false" />
+            </column>
+            <column name="active" type="varchar(255)" />
+            <column name="name" type="varchar(255)" />
+            <column name="car_manufacturer_id" type="int">
+                <constraints nullable="false" foreignKeyName="fk_carmodel_carmanufacturer" references="carmanufacturer(id)" />
+            </column>
+        </createTable>
+
+        <createTable tableName="users">
+            <column name="id" type="int" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false" />
+            </column>
+            <column name="email" type="varchar(255)" />
+            <column name="enabled" type="bit(1)" />
+            <column name="first_name" type="varchar(255)" />
+            <column name="last_name" type="varchar(255)" />
+            <column name="password" type="varchar(255)" />
+            <column name="username" type="varchar(255)" />
+        </createTable>
+
+        <createTable tableName="authorities">
+            <column name="id" type="int" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false" />
+            </column>
+            <column name="authority" type="varchar(255)" />
+            <column name="username" type="varchar(255)" />
+            <column name="user_id" type="int">
+                <constraints nullable="false" foreignKeyName="fk_authorities_user" references="users(id)" />
+            </column>
+        </createTable>
+
+        <createTable tableName="carprofile">
+            <column name="id" type="int" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false" />
+            </column>
+            <column name="ccm" type="bigint(20)" />
+            <column name="hp" type="int" />
+            <column name="primary_car" type="bit(1)" />
+            <column name="year_of_production" type="bigint(20)" />
+            <column name="car_model_id" type="int">
+                <constraints nullable="false" foreignKeyName="fk_carprofile_carmodel" references="carmodel(id)" />
+            </column>
+            <column name="user_id" type="int">
+                <constraints nullable="false" foreignKeyName="fk_carprofile_user" references="users(id)" />
+            </column>
+        </createTable>
+    </changeSet>
+</databaseChangeLog>
