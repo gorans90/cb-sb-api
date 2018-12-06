@@ -179,6 +179,11 @@
       <artifactId>spring-messaging</artifactId>
       <version>5.0.4.RELEASE</version>
     </dependency>
+    <dependency>
+      <groupId>com.heroku.sdk</groupId>
+      <artifactId>heroku-maven-plugin</artifactId>
+      <version>2.0.6</version>
+    </dependency>
 
   </dependencies>
 
@@ -192,6 +197,18 @@
                <!-- -Xdebug -Xrunjdwp:transport=dt_socket,server=y,suspend=y,address=5005-->
           <!--</jvmArguments>-->
           <addResources>true</addResources>
+        </configuration>
+      </plugin>
+
+      <plugin>
+        <groupId>com.heroku.sdk</groupId>
+        <artifactId>heroku-maven-plugin</artifactId>
+        <version>2.0.6</version>
+        <configuration>
+          <appName>cb-sb-api</appName>
+          <!--<processTypes>-->
+            <!--<web>java $JAVA_OPTS -cp target/classes:target/dependency/* Main</web>-->
+          <!--</processTypes>-->
         </configuration>
       </plugin>
 
