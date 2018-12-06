@@ -206,9 +206,9 @@
         <version>2.0.6</version>
         <configuration>
           <appName>cb-sb-api</appName>
-          <!--<processTypes>-->
-            <!--<web>java $JAVA_OPTS -cp target/classes:target/dependency/* Main</web>-->
-          <!--</processTypes>-->
+          <processTypes>
+            <web>java $JAVA_OPTS -jar target/carbook-0.0.1-SNAPSHOT.jar</web>
+          </processTypes>
         </configuration>
       </plugin>
 
